@@ -1,7 +1,8 @@
 <?php
 header("Acces-Control-Allow_origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-$conn = new pg_connect("127.0.0.1", "5431", "prueba", "user", "password");
+$cadena="host='127.0.0.1', port='5431', dbname='prueba', user='user', password='password'";
+$conn = new pg_connect($cadena);
 $result = $conn->query("SELECT * FROM clientes");
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)){
