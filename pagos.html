@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+<!-- Custom styles for this template -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="css/agency.min.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src="locales/bootstrap-datepicker.es.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+          $('#date-insert').datepicker({
+            format:'yyyy-mm-dd',
+            language:"es",
+          });       
+      });
+      
+</script>
+<script>
+$(document).ready(function(){
+          $('#date-edit').datepicker({
+            format:'yyyy-mm-dd',
+            language:"es",
+          });       
+      });
+  
+</script>
+
+
+
+<title>Pagos Pendientes</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark " id="mainNav">
+        <div class="container">
+          <a class="navbar-brand js-scroll-trigger" href="index.html">Clientes y Pagos Pendientes</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="cliente.html"><p style="color: black">CLIENTES</p></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="pagos.html"><p style="color: black">PAGOS PENDIENTES</p></a>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <br/><br/>
+    
+            
+     <center> <h1>GESTION DE PAGOS PENDIENTES</h1>  </center>
+<div ng-app="myApps" ng-controller="cntrls" ng-init="cargar_pagoscedulacli()">
+<form >
+<center><img src="https://tse2.mm.bing.net/th?id=OIP.teJKmuIKrzUO-agoOOoNWQHaHa&pid=15.1&P=0&w=300&h=300" title="cliente" alt="cliente"></center>
+    <br/>
+<center><input type="button" class="btn btn-dark" data-toggle="modal" data-target="#crearpago" value="&nbsp;INSERTAR PAGO PENDIENTE"  style="width:40%"></center>
+<div class="modal fade" id="crearpago" tabindex="-1" data-backdrop="static" data-keyboard="false"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+             <center> <h5 class="modal-title" id="exampleModalLongTitle">REGISTRAR PAGOS PEDIENTES</h5></center>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form >
+                            <br/>
+                            <center><label class="col-form-label">ID_PAGO:</label>
+                            <input type="text" class="form-control" ng-model="id_pago" name="id_pago" placeholder="Ingrese su id pago" >
+                            <br/>
+                            <label class="col-form-label"> ID_CEDULA:</label> 
+                            <select name="id_cedulacli" ng-model="id_cedulacli" class="form-control">
+                            <option value="">SELECCIONE LA CEDULA DEL CLIENTE</option>
+                            <option ng-repeat="pago in pagar" value="{{pago.id_cedulacli}}">{{pago.id_cedulacli}}</option>
+                          </select>
+                            <!--<input type="text" class="form-control" ng-model="id_cedulacli" name="id_cedulacli" placeholder="Ingrese su id cedula" >-->
+                            <br/>
+                            <label class="col-form-label"> PLACA:</label> 
+                            <input type="text" class="form-control" ng-model="placa" name="placa"  placeholder="Ingrese su placa" >
+                            <br/>
+                            <label class="col-form-label"> MONTO:</label> 
+                            <input type="text" class="form-control" ng-model="monto" name="monto"  placeholder="Ingrese su monto" >
+                            <br/>
+                          
+                            <label class="col-form-label"> FECHA_PAGO:</label> 
+                            <div class="input-group date " id="date-insert">
+                            <input type="text" class="form-control"  ng-model="fecha_pago" name="fecha_pago"  placeholder="YYYY-MM-DD"  readonly>
+                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></sapn></span>
+                            
+                          </div>                          
+                          
+                              
+                        </center>
+                        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-success" ng-click="insertdata()" >Guardar Registro</button>
+            </div>
+          </div>
+        </div>
+      </div>      
+</form>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<label class="col-form-label">BUSQUEDA POR ID_CEDULA:</label>
+<input type="text" class="form-control" placeholder="Busque por cedula automaticamente" ng-model="buscador" style="width:20%">
+<div class="row" align="center">
+    <div class="col-md-12">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID_PAGO</th>
+            <th>ID_CEDULA</th>
+            <th>MONTO</th>
+            <th>PLACA</th>
+            <th>FECHA_PAGO</th>
+            <th>Eliminar</th>
+            <th>Editar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="pago in data |filter:buscador|orderBy:tipoOrden">
+            <td>{{pago.id_pago}}</td>
+            <td>{{pago.id_cedulacli}}</td>
+            <td>{{pago.monto}}</td>
+            <td>{{pago.placa}}</td>
+            <td>{{pago.fecha_pago}}</td>
+            
+            <td><button type="button" class="btn btn-dark" ng-click="delete(pago.id_pago);">Eliminar</button></td>
+            <td><button type="button" class="btn btn-dark" data-toggle="modal" data-target="#editarpago" ng-click="edit(pago.id_cedulacli, pago.id_pago, pago.placa,pago.monto,pago.fecha_pago);">Editar</button></td> 
+            <div class="modal fade" id="editarpago" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">EDITAR PAGOS PENDIENTES</h5>
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>-->
+                </div>
+                <div class="modal-body">
+                        <form >
+                                <br/>
+                                <center><label class="col-form-label">ID_PAGO:</label>
+                                    <input type="text" class="form-control" ng-model="id_pago" name="id_pago"  ng-disabled="dis.idpagodis">
+                                    <br/>
+                                    <!--<label class="col-form-label"> ID_CEDULA:</label> 
+                                    <input type="text" class="form-control" ng-model="id_pago" name="id_pago" placeholder="Ingrese su id pago" >
+                            <br/>-->
+                            <label class="col-form-label"> ID_CEDULA:</label> 
+                            <select name="id_cedulacli" ng-model="id_cedulacli" class="form-control">
+                            <option value="">SELECCIONE LA CEDULA DEL CLIENTE</option>
+                            <option ng-repeat="pago in pagar |filter:buscador|orderBy:tipoOrden" value="{{pago.id_cedulacli}}">{{pago.id_cedulacli}}</option>
+                          </select>
+                                    <br/>
+                                    <label class="col-form-label"> PLACA:</label> 
+                                    <input type="text" class="form-control" ng-model="placa" name="placa"  >
+                                    <br/>
+                                    <label class="col-form-label"> MONTO:</label> 
+                                    <input type="text" class="form-control" ng-model="monto" name="monto"   >
+                                    <br/>
+                                    <label class="col-form-label"> FECHA_PAGO:</label> 
+                                    <div class="input-group date " id="date-edit">
+                                    <input type="text" class="form-control" ng-model="fecha_pago" name="fecha_pago" readonly>
+                                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></sapn></span>
+                                  </div>
+                            </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="exit()">Cancelar</button>
+                  <button type="button" class="btn btn-success" ng-click="editdata(pago.id_cedulacli, pago.id_pago, pago.placa,pago.monto,pago.fecha_pago)" >Guardar Cambios</button>
+                </div>
+              </div>
+            </div>
+          </div>      
+        </tr>
+
+    </tbody>
+</table>
+</div>
+<script type="text/javascript">
+
+    var app=angular.module('myApps', []);       
+    app.controller('cntrls', function($scope,$http){ 
+        $scope.dis={'idpagodis':false};
+        $http.get("select_pagos.php")
+			.then(function(response){$scope.data=response.data.records;
+        
+            });
+        
+  $scope.insertdata=function(){
+ $http.post("insert_pagos.php", {'id_cedulacli': $scope.id_cedulacli, 'id_pago': $scope.id_pago, 'placa': $scope.placa, 'monto': $scope.monto, 'fecha_pago': $scope.fecha_pago })
+ .success(function(){
+   alert("dato insertado correctamente");  
+   $scope.selectall();
+   $scope.limpiarcampos();
+
+ })
+  }
+  
+  $scope.cargar_pagoscedulacli = function(){  
+           $http.get("cargar_cedulacli.php")  
+           .success(function(data){  
+                $scope.pagar = data;  
+           })  
+      }  
+  $scope.selectall=function(){
+      $http.get("selectall_pagos.php")
+      .success(function(data){
+          $scope.data=data
+      })
+  }
+   $scope.editdata=function(id_cedulacli, id_pago, monto, placa, fecha_pago){
+   $http.post("edit_pagos.php", {'id_cedulacli': $scope.id_cedulacli, 'id_pago': $scope.id_pago, 'placa': $scope.placa, 'monto': $scope.monto, 'fecha_pago': $scope.fecha_pago})   
+   .success(function(){
+   alert("dato modificado correctamente");  
+   $scope.selectall();
+   $scope.limpiarcampos();
+   $scope.dis.idpagodis=false;
+  })
+  }
+  
+  $scope.delete=function(id_pago){
+     $http.post("delete_pago.php", {'id_pago': id_pago}) 
+  .success(function(){
+      alert("Enserio desea eliminar este pago");
+				$scope.selectall();
+  
+    })
+    }
+    $scope.edit=function(id_cedulacli, id_pago, monto, placa, fecha_pago){
+		$scope.id_cedulacli=id_cedulacli;
+		$scope.id_pago=id_pago;
+        $scope.monto=monto;
+        $scope.placa=placa;
+        $scope.fecha_pago=fecha_pago;
+        $scope.dis.idpagodis=true;
+		//$scope.btnName="Update";
+		//$scope.obj.idisable=true;
+		$scope.selectall();
+       
+  }
+  $scope.exit=function(){
+    $scope.limpiarcampos();
+  }
+    $scope.limpiarcampos=function(id_cedulacli, id_pago, monto, placa, fecha_pago){
+        $scope.id_cedulacli=id_cedulacli;
+		$scope.id_pago=id_pago;
+        $scope.monto=monto;
+        $scope.placa=placa;
+        $scope.fecha_pago=fecha_pago;
+        $scope.id_cedulacli="";
+		$scope.id_pago="";
+        $scope.monto="";
+        $scope.placa="";
+        $scope.fecha_pago="";
+
+    }
+
+    });
+    
+</script>
+
+</div>
+</div>
+</body>
+</html>

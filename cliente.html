@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+<!-- Custom styles for this template -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="css/agency.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+<title>Clientes</title>
+</head>
+<body id="page-top">
+      <!--  <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a href="index.html" class="navbar-brand" >
+                  <img src="https://www.ibaroody.com/blog/wp-content/uploads/2016/01/business-development.jpg" width="30" height="30" alt="">
+                    </a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li><a href="cliente.html">CLIENTE</a></li>
+                    <li><a href="pagos.html">PAGOS PENDIENTES</a></li>
+                    
+                  </ul>
+                </div>
+              </nav>-->
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark " id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="index.html">Clientes y Pagos Pendientes</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="cliente.html"><p style="color: black">CLIENTES</p></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="pagos.html"><p style="color: black">PAGOS PENDIENTES</p></a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+<br/><br/>
+
+<center> <h1>GESTION DE CLIENTES</h1>  </center>
+ <div ng-app="myApp" ng-controller="cntrl">
+<form >
+ <center><img src="http://www.revistaemprende.cl/wp-content/uploads/2016/02/Satisfaccion-cliente.jpg" title="cliente" alt="cliente"></center>
+    <br/>
+<center><input type="button" class="btn btn-dark" data-toggle="modal" data-target="#crearcliente" value="&nbsp;INSERTAR CLIENTE"  style="width:40%"></center>
+<div class="modal fade" id="crearcliente" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+             <center> <h5 class="modal-title" id="exampleModalLongTitle">REGISTRAR CLIENTE</h5></center>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form >
+                            <br/>
+                            <center><label class="col-form-label">ID_CEDULA:</label>
+                            <input type="text" class="form-control" ng-model="id_cedulacli" name="id_cedula" placeholder="Ingrese su cedula" >
+                            <br/>
+                            <label class="col-form-label"> NOMBRE:</label> 
+                            <input type="text" class="form-control" ng-model="nombre" name="nombres" placeholder="Ingrese su nombre" >
+                            <br/>
+                            <label class="col-form-label"> APELLIDO:</label> 
+                            <input type="text" class="form-control" ng-model="apellido" name="apellidos"  placeholder="Ingrese su apellido" >
+                        </center>
+                        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-success" ng-click="insertdata()" >Guardar Registro</button>
+            </div>
+          </div>
+        </div>
+      </div>      
+</form>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<label class="col-form-label">BUSQUEDA POR ID_CEDULA, NOMBRE O APELLIDO:</label>
+<input type="text" class="form-control" placeholder="Busque por cedula automaticamente" ng-model="buscador" style="width:20%">
+<div class="row" align="center">
+    <div class="col-md-12">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id_cedula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Eliminar</th>
+            <th>Editar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="cliente in data |filter:buscador|orderBy:tipoOrden">
+            <td>{{cliente.id_cedulacli}}</td>
+            <td>{{cliente.nombre}}</td>
+            <td>{{cliente.apellido}}</td>
+            <td><button type="button" class="btn btn-dark" ng-click="delete(cliente.id_cedulacli);">Eliminar</button></td>
+            <td><button type="button" class="btn btn-dark" data-toggle="modal" data-target="#editarcliente" ng-click="edit(cliente.id_cedulacli, cliente.nombre, cliente.apellido);">Editar</button></td> 
+           <div class="modal fade" id="editarcliente" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">EDITAR CLIENTE</h5>
+                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>-->
+                </div>
+                <div class="modal-body">
+                        <form >
+                                <br/>
+                                <label class="col-form-label">ID_CEDULA:</label>
+                                <input type="text" class="form-control" ng-model="id_cedulacli" name="id_cedula" ng-disabled="dis.idceduladis">
+                                <br/>
+                                <label class="col-form-label"> NOMBRE:</label> 
+                                <input type="text" class="form-control" ng-model="nombre" name="nombres">
+                                <br/>
+                                <label class="col-form-label"> APELLIDO:</label> 
+                                <input type="text" class="form-control" ng-model="apellido" name="apellidos">
+                                
+                            </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="exit()">Cancelar</button>
+                  <button type="button" class="btn btn-success" ng-click="editdata(cliente.id_cedulacli, cliente.nombre, cliente.apellido)" >Guardar Cambios</button>
+                </div>
+              </div>
+            </div>
+          </div>      
+        </tr>
+
+    </tbody>
+</table>
+</div>
+<script type="text/javascript">
+    var app=angular.module('myApp', []);       
+    app.controller('cntrl', function($scope,$http){ 
+        $scope.dis={'idceduladis':false};
+        $http.get("select_cliente.php")
+			.then(function(response){$scope.data=response.data.records;
+        
+            })
+          
+  $scope.insertdata=function(){
+  $http.post("insert_cliente.php", {'id_cedulacli': $scope.id_cedulacli, 'nombre': $scope.nombre, 'apellido': $scope.apellido})
+  .success(function(){
+   alert("dato insertado correctamente");  
+   $scope.selectall();
+   $scope.limpiarcampos();
+
+  })
+  }
+  $scope.selectall=function(){
+      $http.get("selectall_cliente.php")
+      .success(function(data){
+          $scope.data=data
+      })
+  }
+  $scope.exit=function(){
+    $scope.limpiarcampos();
+  }
+   $scope.editdata=function(id_cedulacli, nombre, apellido){
+   $http.post("edit_cliente.php", {'id_cedulacli': $scope.id_cedulacli, 'nombre': $scope.nombre, 'apellido': $scope.apellido})   
+   .success(function(){
+   alert("dato modificado correctamente");  
+   $scope.selectall();
+   $scope.limpiarcampos();
+   $scope.dis.idceduladis=false;
+  })
+  }
+  
+     $scope.delete=function(id_cedulacli){
+     $http.post("delete_cliente.php", {'id_cedulacli': id_cedulacli}) 
+  .success(function(){
+      alert("Enserio desea eliminar este cliente");
+				$scope.selectall();
+  
+    })
+    }
+    $scope.edit=function(id_cedula, nombres, apellidos){
+		$scope.id_cedulacli=id_cedula;
+		$scope.nombre=nombres;
+        $scope.apellido=apellidos;
+        $scope.dis.idceduladis=true;
+		//$scope.btnName="Update";
+		//$scope.obj.idisable=true;
+		$scope.selectall();
+       
+	}
+    $scope.limpiarcampos=function(id_cedulacli, nombre, apellido){
+        $scope.id_cedulacli=id_cedulacli;
+		$scope.nombre=nombre;
+        $scope.apellido=apellido;
+        id_cedulacli="";
+        nombre="";
+        apellido="";
+
+    }
+
+    });
+    
+</script>
+
+</div>
+</div>
+</body>
+</html>
