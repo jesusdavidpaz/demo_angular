@@ -1,11 +1,11 @@
 <?php
 header("Acces-Control-Allow_origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-$cadena="host='127.0.0.1', port='5431', dbname='prueba', user='user', password='password'";
+$cadena="host='localhost' port='5431' dbname='prueba' user='user' password='password'";
 $conn = new pg_connect($cadena);
-$result = $conn->query("SELECT * FROM pagos_pendientes");
+$result = $conn->pg_query("SELECT * FROM pagos_pendientes");
 $outp = "";
-while($rs = $result->fetch_array(MYSQLI_ASSOC)){
+while($rs = $result->pg_fetch_array(MYSQLI_ASSOC)){
 	if($outp != "") {$outp .= ",";}
 	$outp .= '{"id_pago":"' . $rs["id_pago"] . '",';
     $outp .= '"placa":"' . $rs["placa"] . '",';
@@ -14,7 +14,7 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)){
 	$outp .= '"fecha_pago":"' . $rs["fecha_pago"] . '"}';
 }
 $outp = '{"records":['.$outp.']}';
-$conn->close();
+$conn->pg_close();
 echo ($outp);
 
 /*$rs=$dbhandle->query($query);

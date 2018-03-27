@@ -1,7 +1,7 @@
 <?php
 include "connectdb.php";
 $query="select * from pagos_pendientes";
-$rs=$dbhandle->query($query);
+$rs=$dbhandle->pg_query($query);
 
 while ($row = $rs->pg_fetch_array()) {
   $data[] = $row;

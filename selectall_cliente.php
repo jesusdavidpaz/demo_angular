@@ -1,9 +1,9 @@
 <?php
 include "connectdb.php";
-$query="select * from clientes";
-$rs=$dbhandle->query($query);
+$query="select * from clientes order by id_cedulacli";
+$rs=pg_query($query);
 
-while ($row = $rs->pg_fetch_array()) {
+while ($row = pg_fetch_array($rs)) {
   $data[] = $row;
 }
     print json_encode($data);

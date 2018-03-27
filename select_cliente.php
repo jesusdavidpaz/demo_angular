@@ -1,23 +1,22 @@
 <?php
 header("Acces-Control-Allow_origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-$cadena="host='127.0.0.1', port='5431', dbname='prueba', user='user', password='password'";
-$conn = new pg_connect($cadena);
-$result = $conn->query("SELECT * FROM clientes");
+
+$conn= pg_connect("host='localhost' port='5431' dbname='prueba' user='user' password='password'");
+$result = pg_query("SELECT * FROM clientes order by id_cedulacli");
 $outp = "";
-while($rs = $result->fetch_array(MYSQLI_ASSOC)){
+while($rs = pg_fetch_array($result)){
 	if($outp != "") {$outp .= ",";}
 	$outp .= '{"id_cedulacli":"' . $rs["id_cedulacli"] . '",';
 	$outp .= '"nombre":"' . $rs["nombre"] . '",';
-	$outp .= '"apellido":"' . $rs["apellido"] . '"}';
+	$outp .= '"apellido":"' . $rs["apellido"] . '",';
+	$outp .= '"edad":"' . $rs["edad"] . '",';
+	$outp .= '"fecha_nacimiento":"' . $rs["fecha_nacimiento"] . '",';
+	$outp .= '"direccion":"' . $rs["direccion"] . '",';
+	$outp .= '"correo":"' . $rs["correo"] . '"}';
 }
 $outp = '{"records":['.$outp.']}';
-$conn->close();
+pg_close();
 echo ($outp);
 
-/*$rs=$dbhandle->query($query);
-while ($row = $rs->fetch_array()){
-    $data[]= $row;
-}
-print json_encode($data);*/
 ?>
