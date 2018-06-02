@@ -9,7 +9,7 @@ $Direccion="";
 $Correo="";
 $ID=0;
 $editar=false;
-$db=pg_connect("host=127.0.0.1 port=5431 dbname=prueba user=user password=password") or die("Unable to Connect DB");
+$db=pg_connect("host=172.30.180.246 dbname=prueba user=user password=password") or die("Unable to Connect DB");
 
 //bton guardar
 if(isset($_POST['insertar'])){
