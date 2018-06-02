@@ -20,7 +20,7 @@ if(isset($_POST['insertar'])){
     $Fecha_nacimiento=$_POST['fecha_nacimiento'];
     $Direccion=$_POST['direccion'];
     $Correo=$_POST['correo'];
-   pg_query($db,"insert into clientes (nombre,apellido,edad,direccion,correo,fecha_nacimiento) values ('".$Nombre."','".$Apellido."','".$Edad."','".$Direccion."','".$Correo."','".$Fecha_nacimiento."')");
+   pg_query($db,"insert into clientes (id_cedulacli,nombre,apellido,edad,direccion,correo,fecha_nacimiento) values ('".$ID."','".$Nombre."','".$Apellido."','".$Edad."','".$Direccion."','".$Correo."','".$Fecha_nacimiento."')");
    header('location:cliente.php');
 }
 if (isset($_POST['editar'])) {
@@ -31,7 +31,7 @@ $Edad=$_POST['edad'];
 $Direccion=$_POST['direccion'];
 $Correo=$_POST['correo'];
 $Fecha_nacimiento=$_POST['fecha_nacimiento'];
-pg_query($db, "update clientes set nombre='".$Nombre."',apellido='".$Apellido."', edad='".$Edad."', direccion='".$Direccion."', fecha_nacimiento='".$Fecha_nacimiento."' where id_cedulacli='".$ID."'");
+pg_query($db, "update clientes set nombre='".$Nombre."',apellido='".$Apellido."', edad='".$Edad."', direccion='".$Direccion."', correo='".$Correo."', fecha_nacimiento='".$Fecha_nacimiento."' where id_cedulacli='".$ID."'");
 header('location:cliente.php');
 }
 
